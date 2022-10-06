@@ -129,5 +129,5 @@ class Game_Object:
     def on_destroy(self):
         pass
 
-    def update(self):
+    def update(self, delta):
         pass

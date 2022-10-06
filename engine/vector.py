@@ -1,3 +1,6 @@
+from __future__ import annotations
+from math import sqrt
+
 class Vector:
     def __init__(self, x:float, y:float):
         """
@@ -6,6 +9,15 @@ class Vector:
 
         self.x = float(x)
         self.y = float(y)
+    
+    def distance(self, other:Vector):
+        x = self.x - other.x
+        y = self.y - other.y
+        
+        i = x**2+y**2
+        i = sqrt(i)
+
+        return i
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y

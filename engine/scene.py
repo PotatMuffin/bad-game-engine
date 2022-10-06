@@ -1,14 +1,15 @@
+from __future__ import annotations
 from tkinter import Button as bt, Tk, Canvas
 from .game_object import Game_Object
 from .button import Button
-from time import sleep
+from time import sleep, time
 
 class Scene:
     """
     the scene class where the game takes place
     """
 
-    def __init__(self, objects:list[Game_Object], name:str="", width="900", height="600", bg:str="#ffffff", fps=60):
+    def __init__(self, objects:list[Game_Object]=[], name:str="", width="900", height="600", bg:str="#ffffff"):
         self.__new_objects:list[Game_Object] = []
         self.__active_objects:list[Game_Object] = []
         self.__destroyed_objects:list[Game_Object] = []
@@ -17,13 +18,11 @@ class Scene:
         self.__width = width
         self.__height = height
         self.__bg = bg
-        self.__fps = fps
+
+        self.__destroyed = False
       
         for obj in objects:
             self.__new_objects.append(obj)
-        
-    def close(self):
-        pass
 
     def init_game_object(self, *obj:Game_Object):
         """
@@ -40,15 +39,33 @@ class Scene:
         for object in obj:
             self.__active_objects.remove(object)
             self.__destroyed_objects.append(object)
+    
+    def destroy(self):
+        """
+        destroys the scene and closes the window
+        """
+
+        self.__destroyed = True
+        self.__window.destroy()
+    
+    def switch_scene(self, scene:Scene):
+        self.destroy()
+
+        new_scene = scene
+        new_scene.startloop()
 
     def startloop(self):
         """
         starts the main loop of the scene 
         """
+
+        delta = 0
+
         # creates the window and canvas for the game
         self.__window = Tk()
         self.__window.title(self.__name)
         self.__window.resizable(False, False)
+        self.__window.protocol("WM_DELETE_WINDOW", self.destroy)
 
         self.__canvas = Canvas(self.__window, width=self.__width, height=self.__height, bg=self.__bg)
         self.__canvas.pack()
@@ -61,7 +78,7 @@ class Scene:
         }
 
         while True:
-            sleep(1/self.__fps)
+            Time = time()
             # taking the objects from __new_objects and puts it in __active_objects
             for _ in range(len(self.__new_objects)):
                 obj = self.__new_objects.pop(0)
@@ -85,6 +102,17 @@ class Scene:
 
             # calls the update method of every object in __active_objects
             for obj in self.__active_objects:
-                obj.update()
+                obj.update(delta)
+
+                if self.__destroyed:
+                    break
 
             self.__window.update()
+
+            if self.__destroyed:
+                break
+                
+            delta = time() - Time
+            if delta == 0:
+                delta = 0.01
+                sleep(0.01)
