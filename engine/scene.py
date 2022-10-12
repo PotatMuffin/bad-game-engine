@@ -37,7 +37,8 @@ class Scene:
         deletes the given Game Objects from the scene
         """
         for object in obj:
-            self.__active_objects.remove(object)
+            if object in self.__active_objects: 
+                self.__active_objects.remove(object)
             self.__destroyed_objects.append(object)
     
     def destroy(self):
