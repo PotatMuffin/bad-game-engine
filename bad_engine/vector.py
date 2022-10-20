@@ -2,7 +2,7 @@ from __future__ import annotations
 from math import sqrt
 
 class Vector:
-    def __init__(self, x:float, y:float):
+    def __init__(self, x:float, y:float) -> None:
         """
         a simple vector class for positions
         """
@@ -10,7 +10,7 @@ class Vector:
         self.x = float(x)
         self.y = float(y)
     
-    def distance(self, other:Vector):
+    def distance(self, other:Vector) -> float:
         x = self.x - other.x
         y = self.y - other.y
         

@@ -1,7 +1,7 @@
 from .game_object import Transform
 from uuid import uuid4
 
-def nothing():
+def nothing() -> None:
     pass
 
 class Button():
@@ -9,7 +9,7 @@ class Button():
     a button
     """
 
-    def __init__(self, transform:Transform, bg="#ffffff", fg="#000000", text="", on_press= nothing, tags:list[str]=[], name=""):
+    def __init__(self, transform:Transform, bg="#ffffff", fg="#000000", text="", on_press= nothing, tags:list[str]=[], name="") -> None:
         self.__transform = transform
         self.__bg = bg
         self.__fg = fg
@@ -19,19 +19,19 @@ class Button():
         self.initialized = False
 
     @property
-    def transform(self):
+    def transform(self) -> Transform:
         return self.__transform
 
     @property
-    def background(self):
+    def background(self) -> str:
         return self.__bg
 
     @property
-    def foreground(self):
+    def foreground(self) -> str:
         return self.__fg
     
     @property
-    def text(self):
+    def text(self) -> str:
         return self.__text
 
     @property
@@ -39,20 +39,20 @@ class Button():
         return self.__on_press 
     
     @property
-    def uuid(self):
+    def uuid(self) -> str:
         return self.__uuid
     
-    def set_background(self, colour:str):
+    def set_background(self, colour:str) -> None:
         self.__bg = colour
     
-    def set_foreground(self, colour:str):
+    def set_foreground(self, colour:str) -> None:
         self.__fg = colour
     
-    def set_text(self, text:str):
+    def set_text(self, text:str) -> None:
         self.__text = text
     
-    def on_destroy(self):
+    def on_destroy(self) -> None:
         pass
 
-    def update(self, delta):
+    def update(self, delta) -> None:
         pass

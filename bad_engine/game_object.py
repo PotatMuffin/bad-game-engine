@@ -18,14 +18,14 @@ class Transform:
     def __repr__(self):
         return f"position: {self.__position}, width: {self.__width}, height: {self.__height}"
 
-    def set_position(self, x:float=None, y:float=None):
+    def set_position(self, x:float=None, y:float=None) -> None:
         """
         changes position 
         """
 
         self.__position = Vector(x or self.__position.x, y or self.__position.y)
     
-    def set_dimensions(self, width:float=None, height:float=None):
+    def set_dimensions(self, width:float=None, height:float=None) -> None:
         """
         changes the width and/or height 
         """
@@ -33,7 +33,7 @@ class Transform:
         self.__width = width or self.__width
         self.__height = height or self.__height
 
-    def move_towards(self, speed: float, position: Vector):
+    def move_towards(self, speed: float, position: Vector) -> None:
         """
         moves the Game Object that holds the Transform to a a specified positon at the given speed 
         """
@@ -59,19 +59,19 @@ class Transform:
         self.set_position(x, y)
 
     @property
-    def position(self):
+    def position(self) -> Vector:
         return self.__position
 
     @property
-    def width(self):
+    def width(self) -> int | float:
         return self.__width
     
     @property
-    def height(self):
+    def height(self) -> int | float:
         return self.__height
     
     @property
-    def center(self):
+    def center(self) -> float:
         return Vector(self.__position.x + self.__width / 2, self.__position.y + self.__height / 2)
 
 class Game_Object:
@@ -79,7 +79,7 @@ class Game_Object:
     basic Game Object that is part of a scene
     """
 
-    def __init__(self, transform:Transform, tags:list[str]=None, name:str=None, shape=RECT, colour:str="#000000"):
+    def __init__(self, transform:Transform, tags:list[str]=None, name:str=None, shape=RECT, colour:str="#000000") -> None:
         self.__transform = transform
         self.__colour = colour
         self.__uuid = uuid4()
@@ -87,47 +87,47 @@ class Game_Object:
         self.__name = name
         self.__shape = shape
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"{{tags: {self.__tags}, name: {self.__name}, shape: {self.__shape}, colour: {self.__colour}, uuid: {self.__uuid}}}"
 
     @property
-    def transform(self):
+    def transform(self) -> Transform:
         return self.__transform
     
     @property
-    def tags(self):
+    def tags(self) -> list[str]:
         return self.__tags
     
     @property
-    def name(self):
+    def name(self) -> str:
         return self.__name
     
     @property
-    def shape(self):
+    def shape(self) -> str:
         return self.__shape
 
     @property
-    def colour(self):
+    def colour(self) -> str:
         return self.__colour
     
     @property
-    def uuid(self):
+    def uuid(self) -> str:
         return self.__uuid
     
-    def set_tags(self, tags:list[str]):
+    def set_tags(self, tags:list[str]) -> None:
         self.__tags = tags
     
-    def set_name(self, name:str):
+    def set_name(self, name:str) -> None:
         self.__name = name
     
-    def set_shape(self, shape):
+    def set_shape(self, shape) -> None:
         self.__shape = shape
     
-    def set_colour(self, colour:str):
+    def set_colour(self, colour:str) -> None:
         self.__colour = colour
 
-    def on_destroy(self):
+    def on_destroy(self) -> None:
         pass
 
-    def update(self, delta):
+    def update(self, delta) -> None:
         pass
