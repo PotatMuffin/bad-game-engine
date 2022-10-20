@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bad_game_engine"
-version = "1.0.0"
+version = "1.0.1"
 description = "a simple game engine I made for fun"
 authors = [{name = "PotatMuffin" }]
 dependencies = ["tk"]
